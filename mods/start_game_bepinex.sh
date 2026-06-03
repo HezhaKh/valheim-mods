@@ -286,4 +286,24 @@ else
     export DYLD_INSERT_LIBRARIES="${doorstop_name}:${DYLD_INSERT_LIBRARIES}"
 fi
 
-exec "$executable_path" "$@"
+# Cross-platform launch (Intel + Apple Silicon M1/M2/M3, and Linux).
+# This pack's injector is x86_64-only (doorstop_libs/libdoorstop_x64.dylib). On Apple Silicon the
+# game would otherwise launch arm64 and reject the dylib, so we must force the x86_64 slice under
+# Rosetta 2. Detect the *hardware* via sysctl (hw.optional.arm64) rather than `uname -m`, because
+# if this script is itself spawned under Rosetta, `uname -m` reports x86_64 even on an M-chip,
+# whereas the hardware flag is always truthful. Full path to sysctl in case PATH is minimal.
+if [ "$(/usr/sbin/sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then
+    # Apple Silicon: force x86_64 via Rosetta. /usr/bin/arch is an Apple hardened binary whose dyld
+    # SCRUBS every DYLD_* var before it execs the game — which would kill the injection — so we
+    # re-assert them *after* the arch hop via /usr/bin/env. The process stays x86_64 across the env
+    # exec, and Valheim (entitled with allow-dyld-environment-variables on both slices) honors the
+    # re-added vars. Absolute dylib path avoids relying on DYLD_LIBRARY_PATH resolution.
+    exec /usr/bin/arch -x86_64 /usr/bin/env \
+        "DYLD_LIBRARY_PATH=${doorstop_directory}" \
+        "DYLD_INSERT_LIBRARIES=${doorstop_directory}/${doorstop_name}" \
+        "$executable_path" "$@"
+else
+    # Intel macOS / native x86_64 / Linux: launch directly. The DYLD_*/LD_* vars exported above
+    # already apply — no Rosetta, and no arch wrapper to strip them. Upstream-proven path.
+    exec "$executable_path" "$@"
+fi

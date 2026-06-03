@@ -67,6 +67,13 @@ This repo is local-only. To push it to GitHub for backup or a second Mac:
 gh repo create valheim-mods --private --source . --push   # needs gh + GitHub auth
 ```
 
+## Installing on another Mac
+- **Apple Silicon (M1/M2/M3, e.g. the M2 MacBook Air):** see
+  [`INSTALL-apple-silicon.md`](INSTALL-apple-silicon.md). The mods are identical; the only
+  difference is the game must be forced to run x86_64 under Rosetta 2 (the bundled injector is
+  x86_64-only). Clone this repo there and follow that file.
+- **Another Intel Mac:** clone, `./deploy.sh`, set the launch option with that machine's path.
+
 ## Alternative: a mod manager
 If you'd rather click-to-update than manage files by hand, **r2modman** or **Gale** are free,
 open-source Valheim mod managers (Thunderstore, macOS) with one-click updates, version pinning,

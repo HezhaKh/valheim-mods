@@ -68,11 +68,14 @@ gh repo create valheim-mods --private --source . --push   # needs gh + GitHub au
 ```
 
 ## Installing on another Mac
-- **Apple Silicon (M1/M2/M3, e.g. the M2 MacBook Air):** see
-  [`INSTALL-apple-silicon.md`](INSTALL-apple-silicon.md). The mods are identical; the only
-  difference is the game must be forced to run x86_64 under Rosetta 2 (the bundled injector is
-  x86_64-only). Clone this repo there and follow that file.
-- **Another Intel Mac:** clone, `./deploy.sh`, set the launch option with that machine's path.
+Clone the repo, run `./deploy.sh`, and set the Steam launch option with that machine's path. The
+launcher (`mods/start_game_bepinex.sh`) auto-detects the chip, so the same files work everywhere:
+- **Apple Silicon (M1/M2/M3):** first install Rosetta 2
+  (`softwareupdate --install-rosetta --agree-to-license`) — the bundled injector is x86_64-only, so
+  the launcher forces the game to run x86_64 under Rosetta. Don't re-sign `valheim.app` or disable
+  SIP; both strip the entitlements that let the mod loader inject. (The launcher's inline comments
+  explain the `arch`/`DYLD_*` mechanics.)
+- **Intel:** nothing extra — the launcher runs the game directly.
 
 ## Alternative: a mod manager
 If you'd rather click-to-update than manage files by hand, **r2modman** or **Gale** are free,

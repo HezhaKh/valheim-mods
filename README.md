@@ -1,8 +1,21 @@
-# Valheim mods (BepInEx) — local repo
+# Valheim mods (BepInEx) — MacBookPro14,3
 
 Version-controlled home for my Valheim mod setup on this MacBook Pro. The canonical files
 live in `mods/`; `deploy.sh` pushes them into the Steam game folder. Update a mod by swapping
 its file in `mods/`, commit, and redeploy.
+
+## Current status: Valheim 1.0.7 testing
+
+The September 9, 2026 game update breaks all four gameplay mods in this profile.
+BepInEx is updated to **5.4.2350**, but compatible gameplay-mod releases are still
+needed. All original mod DLLs and settings are preserved, and the launcher remains
+available for manual testing. See [MODS.md](MODS.md) for exact versions and observed
+failures. Use a fresh test character/world; EquipmentAndQuickSlots currently fails
+to load, so opening an existing character can lose its extra-slot items.
+
+`./deploy.sh` installs the updated loader and retained gameplay mods. A successful
+deploy does **not** establish compatibility. Existing character and world backups
+should be kept until the profile works with Valheim 1.0.
 
 ## Layout
 - `mods/` — the full deployable payload (everything that sits next to `valheim.app`)
@@ -12,7 +25,8 @@ its file in `mods/`, commit, and redeploy.
   - `doorstop_libs/`, `doorstop_config.ini`, `start_game_bepinex.sh` — the macOS loader
 - `deploy.sh`    — push `mods/` → Steam game folder
 - `sync-back.sh` — pull the game folder's current state → `mods/`
-- `MODS.md`      — what's installed + where to get updates
+- `MODS.md`      — versions, compatibility findings, and upstream sources
+- `SHA256SUMS`   — verify payload integrity with `shasum -a 256 -c SHA256SUMS`
 
 Game folder (auto-detected): `~/Library/Application Support/Steam/steamapps/common/Valheim`
 Override with `VALHEIM_DIR="/path/to/Valheim" ./deploy.sh` on another machine.
@@ -28,11 +42,14 @@ Steam → Valheim → Properties → Launch Options:
 **Update / add a mod**
 1. Drop the new `.dll` into `mods/BepInEx/plugins/` (and any `.cfg` into `mods/BepInEx/config/`).
 2. `./deploy.sh`
-3. `git add -A && git commit -m "update <mod> to <version>"`
+3. Update `MODS.md` and `SHA256SUMS`, then commit the reviewed changes.
 
-**Remove a mod** — delete its `.dll` from `mods/BepInEx/plugins/`, then `./deploy.sh`, then commit.
+**Remove a mod** — first check its save-data requirements (especially EquipmentAndQuickSlots), then delete its `.dll`, update the inventory/checksums, deploy, and commit.
 
 **Roll back to a previous version**
+
+The old profile requires its matching older game version. Rolling back only the mods
+does not make them compatible with Valheim 1.0, and does not undo save migrations.
 ```
 git log --oneline
 git checkout <commit> -- mods/
@@ -58,14 +75,17 @@ git add -A && git commit -m "capture in-game config changes"
 deletes `valheim.app`.
 
 ## Restore vanilla
-Blank the Steam Launch Options, and/or Steam → Valheim → Properties → Installed Files →
-**Verify integrity of game files**.
+Clear the Steam Launch Options to bypass the mod loader. If game files need repair,
+also use Steam → Valheim → Properties → Installed Files → **Verify integrity of game files**.
+Verification alone does not clear launch options or remove third-party mods. Test
+vanilla with a fresh character; an existing EquipmentAndQuickSlots character needs
+working extra-slot support to preserve those items.
 
-## Back it up / sync across machines (optional)
-This repo is local-only. To push it to GitHub for backup or a second Mac:
-```
-gh repo create valheim-mods --private --source . --push   # needs gh + GitHub auth
-```
+## GitHub backup / sync across machines
+
+The canonical remote is [HezhaKh/valheim-mods-macbookpro14-3](https://github.com/HezhaKh/valheim-mods-macbookpro14-3).
+After reviewing and committing changes, run `git push origin main`. Keep character
+and world backups separately; this repo does not contain saves.
 
 ## Installing on another Mac
 Clone the repo, run `./deploy.sh`, and set the Steam launch option with that machine's path. The
@@ -73,7 +93,7 @@ launcher (`mods/start_game_bepinex.sh`) auto-detects the chip, so the same files
 - **Apple Silicon (M1/M2/M3):** first install Rosetta 2
   (`softwareupdate --install-rosetta --agree-to-license`) — the bundled injector is x86_64-only, so
   the launcher forces the game to run x86_64 under Rosetta. Don't re-sign `valheim.app` or disable
-  SIP; both strip the entitlements that let the mod loader inject. (The launcher's inline comments
+  SIP; neither change is needed, and re-signing can remove the entitlements that permit injection. (The launcher's inline comments
   explain the `arch`/`DYLD_*` mechanics.)
 - **Intel:** nothing extra — the launcher runs the game directly.
 

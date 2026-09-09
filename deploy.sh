@@ -19,7 +19,7 @@ DRY=""
 for a in "$@"; do
   case "$a" in
     --link)    MODE=link ;;
-    --dry-run) DRY="--dry-run" ;;
+    --dry-run) DRY="--dry-run --itemize-changes" ;;
     -h|--help) sed -n '2,12p' "$0"; exit 0 ;;
     *) echo "deploy.sh: unknown argument '$a' (try --help)" >&2; exit 2 ;;
   esac
@@ -53,11 +53,12 @@ if [ "$MODE" = link ]; then
   done
 else
   # Copy mode. Only named sub-paths are synced, so valheim.app is never at risk.
-  # plugins/ and config/ use --delete, so mods/configs removed in the repo also leave the game.
+  # plugins/, config/, and core/ use --delete, so removed files also leave the game.
+  # Framework upgrades must not leave stale assemblies/symbols in core/.
   echo "syncing:"
   rsync -a $DRY --delete --exclude='.DS_Store' "$SRC/BepInEx/plugins/" "$GAME/BepInEx/plugins/"
   rsync -a $DRY --delete --exclude='.DS_Store' "$SRC/BepInEx/config/"  "$GAME/BepInEx/config/"
-  rsync -a $DRY            --exclude='.DS_Store' "$SRC/BepInEx/core/"    "$GAME/BepInEx/core/"
+  rsync -a $DRY --delete --exclude='.DS_Store' "$SRC/BepInEx/core/"    "$GAME/BepInEx/core/"
   if [ -d "$SRC/BepInEx/patchers" ]; then rsync -a $DRY --exclude='.DS_Store' "$SRC/BepInEx/patchers/" "$GAME/BepInEx/patchers/"; fi
   rsync -a $DRY --exclude='.DS_Store' "$SRC/doorstop_libs/" "$GAME/doorstop_libs/"
   for f in doorstop_config.ini start_game_bepinex.sh start_server_bepinex.sh .doorstop_version winhttp.dll; do

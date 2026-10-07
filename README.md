@@ -4,18 +4,18 @@ Version-controlled home for my Valheim mod setup on this MacBook Pro. The canoni
 live in `mods/`; `deploy.sh` pushes them into the Steam game folder. Update a mod by swapping
 its file in `mods/`, commit, and redeploy.
 
-## Current status: Valheim 1.0.7 testing
+## Current status: Valheim 1.0.17
 
-The September 9, 2026 game update breaks all four gameplay mods in this profile.
-BepInEx is updated to **5.4.2350**, but compatible gameplay-mod releases are still
-needed. All original mod DLLs and settings are preserved, and the launcher remains
-available for manual testing. See [MODS.md](MODS.md) for exact versions and observed
-failures. Use a fresh test character/world; EquipmentAndQuickSlots currently fails
-to load, so opening an existing character can lose its extra-slot items.
+The profile was refreshed and startup-tested on **2026-10-06** against Steam build
+**25730771** (Valheim **1.0.17**, network version 40). BepInEx loaded all five plugins
+with no skipped or failed plugins, and the graphical test reached the main menu without
+mod exceptions. See [MODS.md](MODS.md) for exact package versions, sources, migrations,
+and the remaining gameplay/server checks.
 
-`./deploy.sh` installs the updated loader and retained gameplay mods. A successful
-deploy does **not** establish compatibility. Existing character and world backups
-should be kept until the profile works with Valheim 1.0.
+Back up characters and worlds before the first real login. EquipmentAndQuickSlots 3.x
+automatically migrates the old 2.x slot data when a character is loaded, and that saved
+migration has no downgrade path. All server players should deploy this exact revision;
+ValheimPlus and Jotunn enforce matching multiplayer versions/configuration.
 
 ## Layout
 - `mods/` — the full deployable payload (everything that sits next to `valheim.app`)
@@ -48,8 +48,8 @@ Steam → Valheim → Properties → Launch Options:
 
 **Roll back to a previous version**
 
-The old profile requires its matching older game version. Rolling back only the mods
-does not make them compatible with Valheim 1.0, and does not undo save migrations.
+Older profile revisions require their matching game version. Rolling back only the mods
+does not undo save or EquipmentAndQuickSlots 3.x character migrations.
 ```
 git log --oneline
 git checkout <commit> -- mods/

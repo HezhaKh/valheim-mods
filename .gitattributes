@@ -1,0 +1,5 @@
+# Keep the runtime payload byte-for-byte identical across platforms for SHA256SUMS.
+mods/** -text
+
+# Shell launchers and helpers must retain LF endings even in Windows Git checkouts.
+*.sh text eol=lf

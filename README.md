@@ -32,7 +32,7 @@ Use your own Steam game folder on another PC.
 2. **Get this repository.** Use GitHub's **Code → Download ZIP** and extract it, or run:
 
    ```powershell
-   git clone https://github.com/HezhaKh/valheim-mods-macbookpro14-3.git
+   git clone https://github.com/HezhaKh/valheim-mods.git
    ```
 
    Keep all files from the same revision. This profile was observed working with Valheim
@@ -153,7 +153,7 @@ working extra-slot support to preserve those items.
 
 ## GitHub backup / sync across machines
 
-The canonical remote is [HezhaKh/valheim-mods-macbookpro14-3](https://github.com/HezhaKh/valheim-mods-macbookpro14-3).
+The canonical remote is [HezhaKh/valheim-mods](https://github.com/HezhaKh/valheim-mods).
 After reviewing and committing changes, run `git push origin main`. Keep character
 and world backups separately; this repo does not contain saves.
 

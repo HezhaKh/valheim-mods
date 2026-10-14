@@ -1,6 +1,7 @@
 # Mod compatibility — Valheim 1.0.17
 
-Reviewed **2026-10-13** against the running Windows Steam install: build
+Reviewed **2026-10-14** against the Windows Steam installation and completed
+**2026-10-13** multiplayer session: build
 **25730771**, Valheim **1.0.17** (network version 40), Unity
 **6000.0.75.2503836**.
 
@@ -117,6 +118,29 @@ This table records the changes logged in this session, not the entire server con
 The versioned local config remains the client's baseline; joining the server with
 `serverSyncsConfig = true` supplies its overrides automatically. Copying these runtime
 values into the local config would also change offline or other-server behavior.
+
+### Completed-session follow-up — 2026-10-14
+
+The completed **2026-10-13** log was reviewed through the end of the session, without
+launching a new game. All **26** Windows framework/plugin/native-loader payload files
+still match the repository by SHA-256, and the five config files still have identical
+section/key/value settings. No binary or effective config update was needed.
+
+Character cloud-save writes were logged during play and again at logout, with an
+automatic character backup created at **19:30:44**. Network shutdown and disconnect
+occurred at **20:42:40**, followed by return to the main menu and Steam/mod cleanup at
+**20:42:46**. These timestamps use the PC's Toronto local time. No additional mod
+exception, failed patch or incompatibility message appeared in the completed log.
+
+On disconnect, ValheimPlus logged `Config source changed, re-applying patches.` and
+restored all **36** server-provided changes to the client's baseline. This confirms
+that the server settings documented above were temporary runtime overrides, rather
+than changes that need to be copied into the versioned local config.
+
+The save/write and shutdown messages do not verify every item in a character's
+equipment slots or establish that an old-format character migration succeeded.
+Those checks, individual crafting/container features and macOS execution remain
+outside the completed log review.
 
 Valheim 1.0.17 itself is a small hotfix for chunk splitting, invalid item styles,
 placeholder text, and credits; see the [official patch notes](https://www.valheimgame.com/news/patch-1-0-17/).

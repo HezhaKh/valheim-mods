@@ -15,6 +15,12 @@ No mod exception or failed patch was found in the reviewed log. The earlier disp
 startup tests were performed on **2026-10-06**. See [MODS.md](MODS.md) for exact versions,
 server settings observed in this session, and checks that still require gameplay review.
 
+The **2026-10-14** follow-up reviewed that session through logout: character cloud-save
+writes and an automatic character backup were logged, followed by normal disconnect,
+return to the menu and shutdown. ValheimPlus restored all **36** server overrides to
+the client baseline after disconnect. The installed files and settings still match
+this repository.
+
 Back up characters and worlds before the first real login. EquipmentAndQuickSlots 3.x
 automatically migrates the old 2.x slot data when a character is loaded, and that saved
 migration has no downgrade path. Keep modded clients on the same profile revision and

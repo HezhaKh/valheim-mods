@@ -4,22 +4,22 @@ Version-controlled home for the mod profile shared by my Windows PC and MacBookP
 The canonical files live in `mods/`. Windows uses the bundled `winhttp.dll` loader;
 macOS uses `deploy.sh` and the bundled shell launcher.
 
-## Current status: Valheim 1.0.17
+## Current status: Valheim 1.0.20
 
-Reviewed against the running Windows session on **2026-10-13**: Steam build
-**25730771**, Valheim **1.0.17**, network version **40**, BepInExPack **5.4.2351**.
-All five plugin DLLs and the Windows runtime/loader files match the repository.
-The session log reports **5 loaded, 0 skipped, 0 failed**, a matching ValheimPlus
-server version, receipt of **435** server settings, and successful player spawning.
-No mod exception or failed patch was found in the reviewed log. The earlier disposable
-startup tests were performed on **2026-10-06**. See [MODS.md](MODS.md) for exact versions,
-server settings observed in this session, and checks that still require gameplay review.
+Updated and startup-tested on Windows on **2026-10-16**: Steam build **25909357**,
+Valheim **1.0.20**, network version **41**, BepInExPack **5.4.2351**, and ValheimPlus
+package **10.3.0** / plugin **0.10.3.0**. The other mods remain on their latest published
+stable versions. A graphical test using a disposable save directory loaded all five
+plugins (**5 loaded, 0 skipped, 0 failed**), initialized the main-menu scene, and logged
+no errors or exceptions. No character, world or server was selected during that test.
+See [MODS.md](MODS.md) for versions, release sources, preserved settings and test limits.
 
-The **2026-10-14** follow-up reviewed that session through logout: character cloud-save
-writes and an automatic character backup were logged, followed by normal disconnect,
-return to the menu and shutdown. ValheimPlus restored all **36** server overrides to
-the client baseline after disconnect. The installed files and settings still match
-this repository.
+To join the same server, its game and every modded client must also use **Valheim 1.0.20
+(network 41)** and **ValheimPlus 0.10.3.0**. The existing `enforceMod = true` setting
+rejects a mismatched ValheimPlus version; keep enforcement enabled. Multiplayer with
+this updated profile has not yet been tested. The successful **2026-10-13** session,
+including saves and normal logout reviewed on **2026-10-14**, used the earlier
+Valheim **1.0.17** / ValheimPlus **0.10.2.0** profile.
 
 Back up characters and worlds before the first real login. EquipmentAndQuickSlots 3.x
 automatically migrates the old 2.x slot data when a character is loaded, and that saved
@@ -41,8 +41,10 @@ Use your own Steam game folder on another PC.
    git clone https://github.com/HezhaKh/valheim-mods.git
    ```
 
-   Keep all files from the same revision. This profile was observed working with Valheim
-   **1.0.17**; later game updates need a fresh compatibility check.
+   Keep all files from the same revision. This profile targets Valheim **1.0.20**
+   (network **41**) and ValheimPlus **0.10.3.0**. Update the game through Steam and
+   coordinate the same versions with the server before joining. Later game updates
+   need a fresh compatibility check.
 3. **Open the game folder.** In Steam, right-click **Valheim → Properties → Installed Files → Browse**.
    Confirm that `valheim.exe` is directly inside the folder.
 4. **Back up an existing mod installation.** If `BepInEx` is already present, move it into
@@ -65,21 +67,24 @@ Use your own Steam game folder on another PC.
 7. **Verify the first launch.** Open `BepInEx\LogOutput.log` in the game folder and look for:
 
    ```text
+   Valheim Version: 1.0.20
    Loading [Craft From Containers 4.0.7]
    Loading [Jotunn 2.30.2]
    Loading [Smart Containers Mod 1.8.3]
-   Loading [Valheim Plus 0.10.2.0]
+   Loading [Valheim Plus 0.10.3.0]
    Loading [Equipment and Quick Slots 3.1.3]
    Chainloader startup complete (5 loaded, 0 skipped, 0 failed)
    ```
 
    The real loading lines also contain each plugin's GUID. Investigate missing plugins,
    exceptions, or version mismatches before loading a character with extra-slot items.
-8. **Join the same server.** Use its existing address and password. Confirm that ValheimPlus
-   exchanges matching versions and receives the server config. Verify your equipment and
-   quick slots (`I`, `O`, `P`) after spawning, then check crafting and container behavior.
-   A successful spawn is recorded in the **2026-10-13** Windows session; individual
-   mechanics and old-save migration have not been audited item by item.
+8. **Join the same server once its versions match.** Confirm that the server uses Valheim
+   **1.0.20 / network 41** and ValheimPlus **0.10.3.0**, then use its existing address and
+   password. Check the log for matching versions and receipt of the server config.
+   Do not disable version enforcement to connect to the old profile. Verify your equipment
+   and quick slots (`I`, `O`, `P`) after spawning, then check crafting and container behavior.
+   The current profile has passed startup testing; server play and individual mechanics
+   still need an in-game check. The **2026-10-13** successful spawn was on the older profile.
 
 ## Layout
 

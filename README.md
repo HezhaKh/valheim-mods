@@ -4,27 +4,33 @@ Version-controlled home for the mod profile shared by my Windows PC and MacBookP
 The canonical files live in `mods/`. Windows uses the bundled `winhttp.dll` loader;
 macOS uses `deploy.sh` and the bundled shell launcher.
 
-## Current status: Valheim 1.0.20
+## Current status: Valheim 1.0.21
 
-Updated and startup-tested on Windows on **2026-10-16**: Steam build **25909357**,
-Valheim **1.0.20**, network version **41**, BepInExPack **5.4.2351**, and ValheimPlus
-package **10.3.0** / plugin **0.10.3.0**. The other mods remain on their latest published
-stable versions. A graphical test using a disposable save directory loaded all five
-plugins (**5 loaded, 0 skipped, 0 failed**), initialized the main-menu scene, and logged
-no errors or exceptions. No character, world or server was selected during that test.
-See [MODS.md](MODS.md) for versions, release sources, preserved settings and test limits.
+Updated and startup-tested on Windows on **2026-10-29**: Steam build **26249040**,
+Valheim **1.0.21**, network version **41**, BepInExPack **5.4.2360** / BepInEx
+**5.4.23.6**, and ValheimPlus package **10.4.0** / plugin **10.4.0.0**. ValheimPlus
+has dropped the leading `0` from its plugin version. The other four plugins remain
+on their latest published stable versions. A graphical test using a disposable save
+directory loaded all five plugins (**5 loaded, 0 skipped, 0 failed**), initialized the
+main-menu scene, and logged no errors or exceptions. No character, world or server
+was selected. See [MODS.md](MODS.md) for versions, sources, preserved settings and limits.
 
-To join the same server, its game and every modded client must also use **Valheim 1.0.20
-(network 41)** and **ValheimPlus 0.10.3.0**. The existing `enforceMod = true` setting
-rejects a mismatched ValheimPlus version; keep enforcement enabled. Multiplayer with
-this updated profile has not yet been tested. The successful **2026-10-13** session,
-including saves and normal logout reviewed on **2026-10-14**, used the earlier
-Valheim **1.0.17** / ValheimPlus **0.10.2.0** profile.
+For the same server, use this profile on every modded client, keep game network version
+**41**, and coordinate **ValheimPlus 10.4.0.0** on the server and clients. The enabled
+`enforceMod` setting rejects the older **0.10.3.0** plugin; keep enforcement enabled.
+Valheim **1.0.20** and **1.0.21** both use network 41, so an exact 1.0.21 version is not
+a new network requirement. The current game/profile is recommended, but multiplayer
+with this update has not yet been tested. Upstream ValheimPlus lists 1.0.20 with the
+older framework; **1.0.21 + BepInExPack 5.4.2360** is locally startup-tested here.
+
+The **2026-10-16** main-menu test used Valheim **1.0.20** / ValheimPlus **0.10.3.0**.
+The successful **2026-10-13** multiplayer session, including saves and normal logout
+reviewed on **2026-10-14**, used **1.0.17 / 0.10.2.0**. These are historical results.
 
 Back up characters and worlds before the first real login. EquipmentAndQuickSlots 3.x
 automatically migrates the old 2.x slot data when a character is loaded, and that saved
 migration has no downgrade path. Keep modded clients on the same profile revision and
-matching game version. With `serverSyncsConfig = true`, ValheimPlus receives the server's
+compatible game network version. With `serverSyncsConfig = true`, ValheimPlus receives the server's
 settings after joining; those runtime overrides can differ from the local config file.
 
 ## Windows installation, step by step
@@ -41,10 +47,10 @@ Use your own Steam game folder on another PC.
    git clone https://github.com/HezhaKh/valheim-mods.git
    ```
 
-   Keep all files from the same revision. This profile targets Valheim **1.0.20**
-   (network **41**) and ValheimPlus **0.10.3.0**. Update the game through Steam and
-   coordinate the same versions with the server before joining. Later game updates
-   need a fresh compatibility check.
+   Keep all files from the same revision. This profile was startup-tested with Valheim
+   **1.0.21**, network **41**, and ValheimPlus **10.4.0.0**. Use the current Steam game
+   and coordinate the same mod profile with the server before joining. Later game
+   updates need a fresh compatibility check.
 3. **Open the game folder.** In Steam, right-click **Valheim → Properties → Installed Files → Browse**.
    Confirm that `valheim.exe` is directly inside the folder.
 4. **Back up an existing mod installation.** If `BepInEx` is already present, move it into
@@ -67,24 +73,25 @@ Use your own Steam game folder on another PC.
 7. **Verify the first launch.** Open `BepInEx\LogOutput.log` in the game folder and look for:
 
    ```text
-   Valheim Version: 1.0.20
+   Valheim Version: 1.0.21
    Loading [Craft From Containers 4.0.7]
    Loading [Jotunn 2.30.2]
    Loading [Smart Containers Mod 1.8.3]
-   Loading [Valheim Plus 0.10.3.0]
+   Loading [Valheim Plus 10.4.0.0]
    Loading [Equipment and Quick Slots 3.1.3]
    Chainloader startup complete (5 loaded, 0 skipped, 0 failed)
    ```
 
    The real loading lines also contain each plugin's GUID. Investigate missing plugins,
    exceptions, or version mismatches before loading a character with extra-slot items.
-8. **Join the same server once its versions match.** Confirm that the server uses Valheim
-   **1.0.20 / network 41** and ValheimPlus **0.10.3.0**, then use its existing address and
+8. **Join the same server once its versions match.** Confirm that the server uses game
+   network **41** and ValheimPlus **10.4.0.0**, then use its existing address and
    password. Check the log for matching versions and receipt of the server config.
    Do not disable version enforcement to connect to the old profile. Verify your equipment
    and quick slots (`I`, `O`, `P`) after spawning, then check crafting and container behavior.
    The current profile has passed startup testing; server play and individual mechanics
    still need an in-game check. The **2026-10-13** successful spawn was on the older profile.
+   Updating the game from 1.0.20 to 1.0.21 does not itself change network version 41.
 
 ## Layout
 
@@ -187,9 +194,12 @@ The launcher (`mods/start_game_bepinex.sh`) auto-detects the chip for Intel and 
 Silicon Macs. The current profile was validated on Windows; macOS runtime validation
 still needs to be performed on the destination Mac.
 
-- **Apple Silicon (M1/M2/M3):** first install Rosetta 2
-  (`softwareupdate --install-rosetta --agree-to-license`) — the bundled injector is x86_64-only, so
-  the launcher forces the game to run x86_64 under Rosetta. Don't re-sign `valheim.app` or disable
+- **Apple Silicon:** first install Rosetta 2
+  (`softwareupdate --install-rosetta --agree-to-license`). This repository deliberately
+  preserves its custom launcher, which runs the game as x86_64 under Rosetta. The new
+  Doorstop **4.6.0** macOS library is universal **arm64 + x86_64** and upstream now
+  supports native Apple Silicon, but this launcher does not switch to that mode.
+  Neither macOS launch mode was runtime-tested for this update. Don't re-sign `valheim.app` or disable
   SIP; neither change is needed, and re-signing can remove the entitlements that permit injection. (The launcher's inline comments
   explain the `arch`/`DYLD_*` mechanics.)
 - **Intel:** nothing extra — the launcher runs the game directly.

@@ -1,5 +1,8 @@
 # Keep the runtime payload byte-for-byte identical across platforms for SHA256SUMS.
 mods/** -text
 
+# Vendor XML documentation retains upstream CRLF bytes; accept CR as a line ending.
+mods/BepInEx/core/*.xml whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
 # Shell launchers and helpers must retain LF endings even in Windows Git checkouts.
 *.sh text eol=lf

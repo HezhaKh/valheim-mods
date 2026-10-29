@@ -287,9 +287,9 @@ else
 fi
 
 # Cross-platform launch (Intel + Apple Silicon M1/M2/M3, and Linux).
-# This pack's injector is x86_64-only (doorstop_libs/libdoorstop_x64.dylib). On Apple Silicon the
-# game would otherwise launch arm64 and reject the dylib, so we must force the x86_64 slice under
-# Rosetta 2. Detect the *hardware* via sysctl (hw.optional.arm64) rather than `uname -m`, because
+# The bundled Doorstop 4.6.0 dylib supports both x86_64 and arm64. This custom launcher
+# intentionally retains the existing x86_64/Rosetta behavior until native execution of
+# this mod profile is tested on a Mac. Detect the hardware via sysctl rather than `uname -m`, because
 # if this script is itself spawned under Rosetta, `uname -m` reports x86_64 even on an M-chip,
 # whereas the hardware flag is always truthful. Full path to sysctl in case PATH is minimal.
 if [ "$(/usr/sbin/sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then

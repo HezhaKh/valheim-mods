@@ -1,6 +1,6 @@
 # Mod compatibility — Valheim 1.0.21
 
-Updated **2026-10-29** against the installed Windows Steam game: build **26249040**,
+Updated **2026-11-06** against the installed Windows Steam game: build **26249040**,
 Valheim **1.0.21** (network version **41**), Unity **6000.0.75.2503836**.
 
 Steam had already installed this stable game release before the mod update. Iron Gate
@@ -8,21 +8,24 @@ published it on **2026-10-28** and explicitly retained crossplay during the stag
 platform rollout; see the [official 1.0.21 patch notes](https://www.valheimgame.com/news/patch-1-0-21/).
 Both 1.0.20 and 1.0.21 use network version **41**.
 
-Published stable releases were checked on **2026-10-29**. BepInExPack was updated to
-**5.4.2360** / BepInEx **5.4.23.6**, and ValheimPlus to package **10.4.0** / plugin
-**10.4.0.0**. The other four plugins remain current at the versions below. The new
-ValheimPlus DLL from GitHub matches the Thunderstore payload by SHA-256. All **471**
-ValheimPlus values in the pre-update local backup were retained; **26** new default
-entries bring the total to **497**. The other four config files' section/key/value
-settings are unchanged from that backup.
+Published stable releases were checked on **2026-11-06**. The only newly published
+component is EquipmentAndQuickSlots **3.2.0**, replacing **3.1.3**. The game, framework,
+native loaders and other four plugins remain current and unchanged. Its published
+Thunderstore DLL was installed; all **37** pre-update local config values, including
+the `I`, `O`, `P` hotkeys, were retained and **12** defaults were added (**49** total).
+The other four config files' settings are unchanged: ValheimPlus **497** entries,
+BepInEx **24**, CraftFromContainers **28** and SmartContainers **47**. All five files
+therefore contain **645** section/key/value entries in total.
 
 A graphical startup test using disposable saves loaded all five plugins with
 **5 loaded, 0 skipped, 0 failed** and no errors or exceptions. No character, world
 or server was selected. The exact **1.0.21 + BepInExPack 5.4.2360 + ValheimPlus 10.4.0.0**
 combination is locally startup-tested, not listed in the author's published compatibility
 matrix. Multiplayer, equipment contents, old-save migration, crafting/container behavior
-and macOS execution have not been verified for this update. The October 16 startup test
-and October 13 multiplayer session below describe older profiles.
+and macOS execution have not been verified for this update. Startup testing also does
+not verify EquipmentAndQuickSlots' full-inventory rescue or death/gravestone behavior.
+The October 29 and October 16 startup tests and October 13 multiplayer session below
+describe older profiles.
 
 ## Versions and sources
 
@@ -32,7 +35,7 @@ and October 13 multiplayer session below describe older profiles.
 | UnityDoorstop | Windows/macOS/Linux **4.6.0** | Updated native loaders from pack 5.4.2360; the macOS dylib is universal arm64 + x86_64. The repository preserves its custom Intel/Rosetta launcher behavior instead of switching Apple Silicon to native execution. macOS runtime remains untested. |
 | Jotunn | **2.30.2** | New dependency of EquipmentAndQuickSlots 3.x; includes Valheim 1.0 and build-menu fixes. [Thunderstore](https://thunderstore.io/c/valheim/p/ValheimModding/Jotunn/) |
 | ValheimPlus (Grantapher) | package **10.4.0** / plugin **10.4.0.0** | Replaces 0.10.3.0; upstream dropped the leading 0 in the plugin version. Manifest requires BepInExPack 5.4.2351, satisfied by installed 5.4.2360. [Release notes](https://github.com/Grantapher/ValheimPlus/releases/tag/10.4.0.0), [Thunderstore](https://thunderstore.io/c/valheim/p/Grantapher/ValheimPlus_Grantapher_Temporary/) |
-| EquipmentAndQuickSlots (RandyKnapp/MidnightsFX) | **3.1.3** | Replaces 2.1.14. The 3.x rewrite supports Deep North, migrates old slot storage, and fixes item duplication. [Thunderstore](https://thunderstore.io/c/valheim/p/RandyKnapp/EquipmentAndQuickSlots/) |
+| EquipmentAndQuickSlots (RandyKnapp/MidnightsFX) | **3.2.0** | Published stable update from 3.1.3. Adds container-window controls, controller combinations and optional favorite marks, with rescue and build-menu key fixes. Requires Jotunn 2.30.2 and BepInExPack 5.4.2360, both already installed. [Thunderstore](https://thunderstore.io/c/valheim/p/RandyKnapp/EquipmentAndQuickSlots/v/3.2.0/), [changelog](https://thunderstore.io/c/valheim/p/RandyKnapp/EquipmentAndQuickSlots/changelog/) |
 | CraftFromContainers (aedenthorn/UnderHeiz port) | package **4.0.70** / plugin **4.0.7** | Replaces 3.8.3 with the active Valheim 1.0 port while retaining GUID `aedenthorn.CraftFromContainers` and its config path. [Thunderstore](https://thunderstore.io/c/valheim/p/UnderHeiz/CraftFromContainers/) |
 | SmartContainers (Flueno/PONEIS port) | **1.8.3** | Replaces 1.7.0 with the active Unity 6/Valheim 1.0 port. It retains GUID `flueno.SmartContainers` and the existing config. [Thunderstore](https://thunderstore.io/c/valheim/p/PONEIS/SmartContainers/) |
 
@@ -40,9 +43,39 @@ The original Flueno and aedenthorn Thunderstore packages are deprecated. The sel
 ports retain their plugin identities and config locations instead of introducing
 similarly named, unrelated replacements.
 
-EquipmentAndQuickSlots remains on the published stable **3.1.3** release; unreleased
-**3.1.4** source code was not installed. Jotunn **2.30.2** remains the latest stable
+EquipmentAndQuickSlots uses the published **3.2.0** package, not an unreleased source
+build. Jotunn **2.30.2** remains the latest stable
 [GitHub release](https://github.com/Valheim-Modding/Jotunn/releases/tag/v2.30.2).
+
+## EquipmentAndQuickSlots 3.2.0 changes — 2026-11-06
+
+The [published package](https://thunderstore.io/c/valheim/p/RandyKnapp/EquipmentAndQuickSlots/v/3.2.0/)
+was released on **2026-10-30 at 03:40 UTC** (**2026-10-29 at 23:40 Toronto time**).
+The [changelog](https://thunderstore.io/c/valheim/p/RandyKnapp/EquipmentAndQuickSlots/changelog/)
+includes overlapping-item rescue fixes, dropping rescued items on the ground when the
+inventory is full, build-menu key-search handling, clamped/draggable chest windows and
+controller button combinations. These gameplay paths were not exercised in the menu test.
+The published documentation supports client-only installation; an optional server
+installation synchronizes and controls balance settings. ValheimPlus version
+enforcement remains a separate server/client requirement.
+
+The actual runtime config grew from **37** to **49** entries. All existing values were
+preserved, including quick-slot hotkeys **I**, **O**, **P**. The **12** additions are:
+
+| Section | Added entries and defaults |
+|---|---|
+| Container Window | `Container Position = {"x":0.0,"y":0.0}`, `Container Draggable = false`, `Container Drag Key = LeftAlt` |
+| Controller | `Quick slot controller modifier = LeftBumper`; buttons 1–4 are `DPadUp`, `DPadRight`, `DPadDown`, `DPadLeft`; buttons 5–6 are `None` |
+| Gravestone | `Dont drop hotbar equipment on death = false` |
+| Quick Slots | `Show favorite marks = true` |
+
+Favorite marks integrate with the optional Item Favorite Framework. That framework is
+not installed and is not required for EquipmentAndQuickSlots. The new gravestone option
+is disabled, so this update does not enable keeping hotbar equipment on death.
+
+The installed `EquipmentAndQuickSlots.dll` from the published package is **658,432 bytes**,
+with SHA-256 `0e213b7bce1f13d3adcdbed6c879f8277336fcceefd191c38298993eecdab22c`.
+The framework, loaders and other plugin binaries were not updated in this refresh.
 
 ## ValheimPlus 10.4.0.0 changes
 
@@ -108,7 +141,9 @@ platform loaders were preserved.
 
 ## Preserved settings and migrations
 
-- EquipmentAndQuickSlots preserved the `I`, `O`, and `P` quick-slot keys. Version 3.x
+- EquipmentAndQuickSlots **3.2.0** retained all **37** pre-update local values and added
+  **12** defaults (**49** total), preserving the `I`, `O`, and `P` quick-slot keys.
+  The older **2.x → 3.x** character-data migration caution still applies: version 3.x
   adds a trinket slot, supports up to six quick slots, and automatically migrates 2.x
   character slot data on first login. **There is no downgrade path after that character
   is saved.** The mod creates an automatic slot backup and provides
@@ -120,8 +155,7 @@ platform loaders were preserved.
   section remains enabled with `enforceMod = true` and `serverSyncsConfig = true`;
   `difficultyScaleRange = 200` was preserved but does not apply while the Game section
   is disabled. On **2026-10-29**, all **471** pre-update local values were retained and
-  **26** defaults were added (**497** total). The other four config files retain their
-  pre-update local settings.
+  **26** defaults were added (**497** total). Its **497** values are unchanged on November 6.
 - CraftFromContainers kept `aedenthorn.CraftFromContainers.cfg`. The new fuel, ore,
   and cooking pull switches are enabled, preserving the old profile's behavior.
 - SmartContainers kept `flueno.SmartContainers.cfg` and its routing/group settings.
@@ -136,7 +170,29 @@ captured on October 16, when the older repository values were **10** and **14**.
 
 ## Validation performed
 
-### Current profile startup — 2026-10-29
+### Current profile startup — 2026-11-06
+
+A graphical Windows startup test used a disposable save directory. It initialized the
+NVIDIA GPU, Steam and PlayFab, and loaded the `start.unity` main-menu scene. The fresh
+log identified BepInEx **5.4.23.6** / pack **5.4.2360** and reported:
+
+```text
+Valheim Version: 1.0.21
+Loading [Craft From Containers 4.0.7]
+Loading [Jotunn 2.30.2]
+Loading [Smart Containers Mod 1.8.3]
+Loading [Valheim Plus 10.4.0.0]
+Loading [Equipment and Quick Slots 3.2.0]
+Chainloader startup complete (5 loaded, 0 skipped, 0 failed)
+```
+
+No error or exception matched in the fresh log. No character, world or server was
+selected, and only the test process was stopped. The config check retained all **37**
+old EquipmentAndQuickSlots values and added the **12** defaults above; the other four
+config files remained unchanged. This verifies startup and config loading, not item
+rescue, full-inventory handling, controller input, death/gravestone behavior or server play.
+
+### Historical profile startup — 2026-10-29
 
 A graphical Windows startup test used a disposable save directory. It initialized the
 NVIDIA GPU, Steam and PlayFab, and loaded the `start.unity` main-menu scene. The fresh
@@ -184,7 +240,7 @@ The most recent gameplay log from Valheim **1.0.20** with the older ValheimPlus
 **0.10.2.0** contained repeated `ShadowPerson1` Standard-shader/property errors. They
 were not reproduced during the later main-menu tests. Their cause has not been diagnosed,
 and menu-only tests do not demonstrate that the gameplay issue is fixed. No new
-character/world play test was performed on October 29.
+character/world play test was performed on October 29 or November 6.
 
 ### Historical startup tests — 2026-10-06
 
@@ -290,12 +346,13 @@ placeholder text, and credits; see the [official patch notes](https://www.valhei
 2. Deploy this exact revision and start Valheim. Confirm all five plugin versions and
    `Chainloader startup complete (5 loaded, 0 skipped, 0 failed)` in
    `BepInEx/LogOutput.log` before selecting a character.
-3. Open an existing EquipmentAndQuickSlots character once, verify every equipment and
-   quick slot, then quit normally so the migrated save and its backup are written.
+3. Load a backed-up character, verify every equipment and quick slot, then quit normally
+   to save. For an old 2.x character, follow the **2.x → 3.x** migration caution above.
 4. Test crafting/building, fuel/ore/cooking pulls, and SmartContainers routing on a
    disposable or backed-up world.
-5. Use the current profile on the server and modded clients, with game network version
-   **41** and matching **ValheimPlus 10.4.0.0**. Its minimum required plugin version is
+5. Keep modded clients on this profile and coordinate server changes separately, with
+   game network version **41** and matching **ValheimPlus 10.4.0.0** on server and clients.
+   Its minimum required plugin version is
    also **10.4.0.0**; the enabled `enforceMod` check rejects older **0.10.3.0** clients
    or servers. Keep enforcement enabled. Valheim 1.0.20 and 1.0.21 share network 41;
    an exact 1.0.21 game version is not a new network gate. Coordinate server changes
@@ -321,3 +378,8 @@ shasum -a 256 -c SHA256SUMS
 remain versioned in Git but are excluded so intentional settings changes are practical.
 `.gitattributes` preserves payload bytes across Git checkouts and keeps shell launchers
 at LF line endings on Windows, avoiding checksum failures caused by newline conversion.
+
+The **2026-11-06** verification passed all **30** checksum entries, matched all **26**
+Windows runtime payload files to the local installation, and matched **645** effective
+settings across five config files. Only the EquipmentAndQuickSlots binary changed
+in the checksum manifest during this refresh.

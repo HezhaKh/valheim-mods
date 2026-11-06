@@ -6,14 +6,17 @@ macOS uses `deploy.sh` and the bundled shell launcher.
 
 ## Current status: Valheim 1.0.21
 
-Updated and startup-tested on Windows on **2026-10-29**: Steam build **26249040**,
-Valheim **1.0.21**, network version **41**, BepInExPack **5.4.2360** / BepInEx
-**5.4.23.6**, and ValheimPlus package **10.4.0** / plugin **10.4.0.0**. ValheimPlus
-has dropped the leading `0` from its plugin version. The other four plugins remain
-on their latest published stable versions. A graphical test using a disposable save
-directory loaded all five plugins (**5 loaded, 0 skipped, 0 failed**), initialized the
-main-menu scene, and logged no errors or exceptions. No character, world or server
-was selected. See [MODS.md](MODS.md) for versions, sources, preserved settings and limits.
+Updated and startup-tested on Windows on **2026-11-06**. EquipmentAndQuickSlots is now
+the published stable **3.2.0** release, with the existing `I`, `O`, `P` hotkeys and all
+**37** prior local settings retained; **12** new defaults bring its config to **49**
+entries. The game and other mods remain current and unchanged: Steam build **26249040**,
+Valheim **1.0.21** / network **41**, BepInExPack **5.4.2360** / BepInEx **5.4.23.6**,
+Jotunn **2.30.2**, ValheimPlus package **10.4.0** / plugin **10.4.0.0**,
+CraftFromContainers **4.0.7** and SmartContainers **1.8.3**. A graphical test using
+disposable saves loaded all five plugins (**5 loaded, 0 skipped, 0 failed**), initialized
+the main menu, and logged no errors or exceptions. No character, world or server was
+selected; controller input, item rescue and server play remain untested. See
+[MODS.md](MODS.md) for sources, new defaults and gameplay checks still needed.
 
 For the same server, use this profile on every modded client, keep game network version
 **41**, and coordinate **ValheimPlus 10.4.0.0** on the server and clients. The enabled
@@ -22,8 +25,12 @@ Valheim **1.0.20** and **1.0.21** both use network 41, so an exact 1.0.21 versio
 a new network requirement. The current game/profile is recommended, but multiplayer
 with this update has not yet been tested. Upstream ValheimPlus lists 1.0.20 with the
 older framework; **1.0.21 + BepInExPack 5.4.2360** is locally startup-tested here.
+EquipmentAndQuickSlots supports client-only installation; installing it on the server
+also provides server-controlled balance settings.
 
-The **2026-10-16** main-menu test used Valheim **1.0.20** / ValheimPlus **0.10.3.0**.
+The **2026-10-29** main-menu test used EquipmentAndQuickSlots **3.1.3** with the same
+game and ValheimPlus versions as today. The **2026-10-16** test used Valheim **1.0.20** /
+ValheimPlus **0.10.3.0**.
 The successful **2026-10-13** multiplayer session, including saves and normal logout
 reviewed on **2026-10-14**, used **1.0.17 / 0.10.2.0**. These are historical results.
 
@@ -48,9 +55,9 @@ Use your own Steam game folder on another PC.
    ```
 
    Keep all files from the same revision. This profile was startup-tested with Valheim
-   **1.0.21**, network **41**, and ValheimPlus **10.4.0.0**. Use the current Steam game
-   and coordinate the same mod profile with the server before joining. Later game
-   updates need a fresh compatibility check.
+   **1.0.21**, network **41**, EquipmentAndQuickSlots **3.2.0**, and ValheimPlus
+   **10.4.0.0**. Use the current Steam game and coordinate the ValheimPlus version with
+   the server before joining. Later game updates need a fresh compatibility check.
 3. **Open the game folder.** In Steam, right-click **Valheim → Properties → Installed Files → Browse**.
    Confirm that `valheim.exe` is directly inside the folder.
 4. **Back up an existing mod installation.** If `BepInEx` is already present, move it into
@@ -78,7 +85,7 @@ Use your own Steam game folder on another PC.
    Loading [Jotunn 2.30.2]
    Loading [Smart Containers Mod 1.8.3]
    Loading [Valheim Plus 10.4.0.0]
-   Loading [Equipment and Quick Slots 3.1.3]
+   Loading [Equipment and Quick Slots 3.2.0]
    Chainloader startup complete (5 loaded, 0 skipped, 0 failed)
    ```
 

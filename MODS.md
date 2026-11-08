@@ -160,6 +160,9 @@ platform loaders were preserved.
   and cooking pull switches are enabled, preserving the old profile's behavior.
 - SmartContainers kept `flueno.SmartContainers.cfg` and its routing/group settings.
   The new protect/favorite shortcut is enabled on `LeftAlt` + right-click.
+  On **2026-11-08**, `[General] hudMessageEnabled = false` was set to hide the
+  routed-item HUD notification. Routing, transfer sounds and chest highlighting stay
+  enabled. Restart Valheim after changing this option to apply it.
 
 The October 29 snapshot also captures three pre-existing local `FireSource` settings:
 `enabled = true`, `autoFuel = true`, and `autoRange = 50`. They differ from the previous
